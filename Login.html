@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Learning Progress Monitoring System - Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f9fafb;
+    }
+    /* Optimized checkbox styles */
+    .custom-checkbox {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      cursor: pointer;
+    }
+    .custom-checkbox input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+    }
+    .checkmark {
+      height: 20px;
+      width: 20px;
+      background-color: white;
+      border: 2px solid #d1d5db;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+    .custom-checkbox input:checked ~ .checkmark {
+      background-color: #4F46E5;
+      border-color: #4F46E5;
+    }
+    .checkmark:after {
+      content: "";
+      position: absolute;
+      display: none;
+      left: 6px;
+      top: 2px;
+      width: 6px;
+      height: 12px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+    .custom-checkbox input:checked ~ .checkmark:after {
+      display: block;
+    }
+    /* Hide number input spinners */
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  </style>
+</head>
+<body class="font-sans bg-gray-50">
+  <main id="login-page" class="min-h-screen flex items-center justify-center">
+    <div class="max-w-md w-full mx-auto">
+      <div class="text-center mb-8">
+        <h1 class="text-4xl text-indigo-600 font-bold">Learning Progress Monitoring System</h1>
+        <h2 class="mt-4 text-3xl font-bold text-gray-900">Welcome Back</h2>
+        <p class="mt-2 text-sm text-gray-600">Sign in to your account to continue</p>
+      </div>
+      <div class="bg-white py-8 px-6 shadow-lg rounded-lg">
+        <form onsubmit="handleLogin(event)" class="space-y-6">
+          <div>
+            <label for="username" class="sr-only">Username</label>
+            <input
+              id="username"
+              type="text"
+              class="w-full border border-gray-300 rounded-md p-2"
+              placeholder="Username"
+              required
+            />
+          </div>
+          <div>
+            <label for="password" class="sr-only">Password</label>
+            <input
+              id="password"
+              type="password"
+              class="w-full border border-gray-300 rounded-md p-2"
+              placeholder="Password"
+              required
+            />
+          </div>
+          <div>
+            <label for="role-select" class="sr-only">Select Role</label>
+            <select
+              id="role-select"
+              class="w-full border border-gray-300 rounded-md p-2"
+              required
+            >
+              <option value="">Select Role</option>
+              <option value="teacher">Teacher</option>
+              <option value="parent">Parent</option>
+              <option value="secretary">Secretary</option>
+              <option value="leadership">Leadership</option>
+            </select>
+          </div>
+          <div>
+            <button
+              type="submit"
+              class="w-full bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700 transition"
+            >
+              Login
+            </button>
+          </div>
+          <div class="flex items-center justify-between">
+            <label class="custom-checkbox flex items-center">
+              <input type="checkbox" name="remember" class="absolute opacity-0" />
+              <span class="checkmark mr-2"></span>
+              <span class="text-sm text-gray-600 select-none">Remember me</span>
+            </label>
+            <div class="text-sm">
+              <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">Forgot password?</a>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="mt-4 text-center text-sm text-gray-600">
+        <p>Need help? Contact your school administrator</p>
+      </div>
+    </div>
+  </main>
+  <script>
+    function handleLogin(event) {
+      event.preventDefault();
+      const role = document.getElementById("role-select").value;
+      if (!role) {
+        alert("Please select a valid role.");
+        return;
+      }
+      alert("Login successful!");
+      const pages = {
+        teacher: "TeacherDashboard.html",
+        parent: "ParentDashboard.html",
+        secretary: "SecretaryDashboard.html",
+        leadership: "LeadershipDashboard.html"
+      };
+      window.location.href = pages[role];
+    }
+  </script>
+</body>
+</html>

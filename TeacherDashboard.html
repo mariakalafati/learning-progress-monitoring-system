@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Learning Progress Monitoring System - Teacher Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Only kept styles actually used in this page */
+    .custom-checkbox {
+      position: relative;
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+    .custom-checkbox input {
+      opacity: 0;
+      position: absolute;
+    }
+    .checkmark {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 20px;
+      width: 20px;
+      background-color: white;
+      border: 2px solid #d1d5db;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+    }
+    .custom-checkbox input:checked ~ .checkmark {
+      background-color: #4F46E5;
+      border-color: #4F46E5;
+    }
+    .checkmark:after {
+      content: "";
+      position: absolute;
+      display: none;
+    }
+    .custom-checkbox input:checked ~ .checkmark:after {
+      display: block;
+    }
+    .custom-checkbox .checkmark:after {
+      left: 6px;
+      top: 2px;
+      width: 6px;
+      height: 12px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+  </style>
+</head>
+<body class="font-sans bg-gray-50">
+  <div id="dashboard-container" class="min-h-screen flex">
+    <!-- Sidebar -->
+    <aside class="hidden md:flex md:flex-col md:w-64 bg-white border-r border-gray-200 shadow-sm p-4">
+      <div class="mb-8">
+        <div class="p-4 flex items-center justify-center border-b border-gray-200">
+          <h2 class="text-2xl text-indigo-600 font-semibold">Learning Progress Monitoring System</h2>
+        </div>
+      </div>
+
+      <nav class="mb-8">
+        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Main</h3>
+        <div class="space-y-1">
+          <a href="#" class="flex items-center px-3 py-2 text-sm font-medium text-indigo-600 bg-indigo-50 rounded">
+            Dashboard
+          </a>
+          <a href="#" class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded">
+            Students
+          </a>
+          <a href="#" class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded">
+            Classes
+          </a>
+          <a href="#" class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded">
+            Learning Goals
+          </a>
+        </div>
+      </nav>
+
+      <nav class="mb-8">
+        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">General Tools</h3>
+        <div class="space-y-1">
+          <a href="#" class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded">
+            View Student Progress
+          </a>
+          <a href="#" class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded">
+            Record Learning Goal Achievement
+          </a>
+          <a href="#" class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded">
+            Generate Reports & Graphs
+          </a>
+          <a href="#" class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded">
+            Add Comments for Parents
+          </a>
+          <a href="#" class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded">
+            Class Overview
+          </a>
+          <a href="#" class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded">
+            Contact & Support
+          </a>
+        </div>
+      </nav>
+
+      <div class="mt-auto space-y-2">
+        <button class="w-full bg-gray-200 text-gray-800 py-2 px-4 rounded-md hover:bg-gray-300 transition-colors" onclick="logout()">
+          Logout
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+      <!-- Top Navigation -->
+      <header class="bg-white shadow-sm z-10">
+        <div class="flex items-center justify-between px-4 py-3">
+          <div class="flex items-center md:hidden">
+            <button type="button" class="text-gray-500 hover:text-gray-600 focus:outline-none focus:text-gray-600" aria-label="Toggle menu">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+              </svg>
+            </button>
+          </div>
+          <div class="flex-1 flex items-center justify-between">
+            <div class="md:hidden">
+              <span class="text-xl text-indigo-600">Learning Progress Monitoring System</span>
+            </div>
+            <div class="relative max-w-xs w-full hidden md:block">
+              <label for="search" class="sr-only">Search</label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                  </svg>
+                </div>
+                <input id="search" type="text" placeholder="Search..." class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+              </div>
+            </div>
+            <div class="flex items-center">
+              <button type="button" class="p-1 ml-3 text-gray-500 rounded-full hover:bg-gray-100 focus:outline-none" aria-label="Notifications">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+                </svg>
+              </button>
+              <div class="ml-3 relative">
+                <div>
+                  <button type="button" id="user-menu-button" class="flex text-sm rounded-full focus:outline-none" aria-expanded="false" aria-haspopup="true">
+                    <span class="sr-only">Open user menu</span>
+                    <div class="h-8 w-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-medium">TU</div>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="border-t border-gray-200 px-4 py-2 sm:px-6 md:hidden">
+          <label for="mobile-search" class="sr-only">Search</label>
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
+            </div>
+            <input id="mobile-search" type="text" placeholder="Search..." class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+          </div>
+        </div>
+      </header>
+
+      <!-- Page Content -->
+      <main class="flex-1 overflow-y-auto bg-gray-50 p-4 sm:p-6">
+        <div class="max-w-7xl mx-auto">
+          <!-- Page Header -->
+          <div class="mb-6">
+            <h1 class="text-2xl font-bold text-gray-900">Teacher Dashboard</h1>
+            <p class="mt-1 text-sm text-gray-500">Track and record student learning goal achievements</p>
+          </div>
+
+          <!-- Stats Cards -->
+          <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 mb-6">
+            <!-- Total Students Card -->
+            <div class="bg-white overflow-hidden shadow rounded-lg">
+              <div class="px-4 py-5 sm:p-6">
+                <div class="flex items-center">
+                  <div class="flex-shrink-0 bg-indigo-100 rounded-md p-3">
+                    <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                    </svg>
+                  </div>
+                  <div class="ml-5 w-0 flex-1">
+                    <dl>
+                      <dt class="text-sm font-medium text-gray-500 truncate">Total Students</dt>
+                      <dd class="text-2xl font-semibold text-gray-900">16</dd>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Goals Achieved Card -->
+            <div class="bg-white overflow-hidden shadow rounded-lg">
+              <div class="px-4 py-5 sm:p-6">
+                <div class="flex items-center">
+                  <div class="flex-shrink-0 bg-green-100 rounded-md p-3">
+                    <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                  </div>
+                  <div class="ml-5 w-0 flex-1">
+                    <dl>
+                      <dt class="text-sm font-medium text-gray-500 truncate">Goals Achieved</dt>
+                      <dd class="flex items-baseline">
+                        <div class="text-2xl font-semibold text-gray-900">73%</div>
+                        <div class="ml-2 flex items-baseline text-sm font-semibold text-green-600">
+                          <svg class="self-center flex-shrink-0 h-5 w-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                          </svg>
+                          <span class="sr-only">Increased by</span>
+                          4%
+                        </div>
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Goals In Progress Card -->
+            <div class="bg-white overflow-hidden shadow rounded-lg">
+              <div class="px-4 py-5 sm:p-6">
+                <div class="flex items-center">
+                  <div class="flex-shrink-0 bg-yellow-100 rounded-md p-3">
+                    <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                  </div>
+                  <div class="ml-5 w-0 flex-1">
+                    <dl>
+                      <dt class="text-sm font-medium text-gray-500 truncate">Goals In Progress</dt>
+                      <dd class="flex items-baseline">
+                        <div class="text-2xl font-semibold text-gray-900">21%</div>
+                        <div class="ml-2 flex items-baseline text-sm font-semibold text-yellow-600">
+                          <svg class="self-center flex-shrink-0 h-5 w-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
+                          </svg>
+                          <span class="sr-only">No change</span>
+                          0%
+                        </div>
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Goals Not Started Card -->
+            <div class="bg-white overflow-hidden shadow rounded-lg">
+              <div class="px-4 py-5 sm:p-6">
+                <div class="flex items-center">
+                  <div class="flex-shrink-0 bg-red-100 rounded-md p-3">
+                    <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                  </div>
+                  <div class="ml-5 w-0 flex-1">
+                    <dl>
+                      <dt class="text-sm font-medium text-gray-500 truncate">Goals Not Started</dt>
+                      <dd class="flex items-baseline">
+                        <div class="text-2xl font-semibold text-gray-900">6%</div>
+                        <div class="ml-2 flex items-baseline text-sm font-semibold text-green-600">
+                          <svg class="self-center flex-shrink-0 h-5 w-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                          </svg>
+                          <span class="sr-only">Decreased by</span>
+                          2%
+                        </div>
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Class Selection and Filters -->
+          <section class="bg-white shadow rounded-lg mb-6">
+            <div class="px-4 py-5 sm:p-6">
+              <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                <div>
+                  <label for="class-select" class="block text-sm font-medium text-gray-700 mb-1">Class</label>
+                  <select id="class-select" class="w-full border border-gray-300 rounded-md p-2">
+                    <option value="0">All Classes</option>
+                    <option value="1" selected>Class 8A</option>
+                    <option value="2">Class 8B</option>
+                    <option value="3">Class 9A</option>
+                    <option value="4">Class 9B</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label for="subject-select" class="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+                  <select id="subject-select" class="w-full border border-gray-300 rounded-md p-2">
+                    <option value="0">All Subjects</option>
+                    <option value="1" selected>Mathematics</option>
+                    <option value="2">Science</option>
+                    <option value="3">English</option>
+                    <option value="4">History</option>
+                  </select>
+                </div>
+                <!-- Week Navigation -->
+                <div>
+                    <label for="subject-select" class="block text-sm font-medium text-gray-700 mb-1">Week</label>
+                    <div class="flex items-center space-x-4">
+                        <button onclick="changeWeek(-1)" class="px-3 py-1 bg-gray-100 rounded hover:bg-gray-200">
+                        ← Previous
+                        </button>
+                        <span id="week-display" class="font-medium">Week 1</span>
+                        <button onclick="changeWeek(1)" class="px-3 py-1 bg-gray-100 rounded hover:bg-gray-200">
+                        Next →
+                        </button>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          
+          <!-- Student Progress Table -->
+          <section class="bg-white shadow rounded-lg overflow-hidden">
+            <div class="px-4 py-5 sm:px-6 border-b border-gray-200 flex justify-between items-center">
+              <div>
+                <h3 class="text-lg font-medium leading-6 text-gray-900">
+                  Student Progress - Class 8A: Mathematics - Week 1
+                </h3>
+                <p class="mt-1 text-sm text-gray-500">
+                  Track learning goal achievements for each student
+                </p>
+              </div>
+              <div class="flex space-x-3">
+                <button type="button" class="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                  <svg class="-ml-0.5 mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                  </svg>
+                  Export Excel
+                </button>
+                <button type="button" class="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                  <svg class="-ml-0.5 mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                  </svg>
+                  Export PDF
+                </button>
+              </div>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                  <tr>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Student</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Learning Goal 1</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Learning Goal 2</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Learning Goal 3</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Learning Goal 4</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Learning Goal 5</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"><button onclick class="text-indigo-600 hover:text-indigo-900">Edit Goals</button></th>
+                  </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                  <!-- Student 1 -->
+                  <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <div class="flex items-center">
+                        <div class="flex-shrink-0 h-10 w-10 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 font-medium">S1</div>
+                        <div class="ml-4">
+                          <div class="text-sm font-medium text-gray-900">Student 1</div>
+                          <div class="text-sm text-gray-500">ID: ST-2023-001</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <label class="custom-checkbox">
+                        <input type="checkbox" checked />
+                        <span class="checkmark"></span>
+                      </label>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <label class="custom-checkbox">
+                        <input type="checkbox" />
+                        <span class="checkmark"></span>
+                      </label>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <label class="custom-checkbox">
+                        <input type="checkbox" checked />
+                        <span class="checkmark"></span>
+                      </label>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <label class="custom-checkbox">
+                        <input type="checkbox" />
+                        <span class="checkmark"></span>
+                      </label>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <label class="custom-checkbox">
+                        <input type="checkbox" checked />
+                        <span class="checkmark"></span>
+                      </label>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                      <button onclick="submitStudent('Student 1')" class="text-indigo-600 hover:text-indigo-900">Submit</button>
+                    </td>
+                  </tr>
+                  
+                  <!-- Student 2 -->
+                  <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <div class="flex items-center">
+                        <div class="flex-shrink-0 h-10 w-10 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 font-medium">S2</div>
+                        <div class="ml-4">
+                          <div class="text-sm font-medium text-gray-900">Student 2</div>
+                          <div class="text-sm text-gray-500">ID: ST-2023-002</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <label class="custom-checkbox">
+                        <input type="checkbox" checked />
+                        <span class="checkmark"></span>
+                      </label>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <label class="custom-checkbox">
+                        <input type="checkbox" checked />
+                        <span class="checkmark"></span>
+                      </label>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <label class="custom-checkbox">
+                        <input type="checkbox" />
+                        <span class="checkmark"></span>
+                      </label>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <label class="custom-checkbox">
+                        <input type="checkbox" />
+                        <span class="checkmark"></span>
+                      </label>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <label class="custom-checkbox">
+                        <input type="checkbox" checked />
+                        <span class="checkmark"></span>
+                      </label>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                      <button onclick="submitStudent('Student 2')" class="text-indigo-600 hover:text-indigo-900">Submit</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            
+            <!-- Pagination -->
+            <div class="px-4 py-3 bg-gray-50 border-t border-gray-200 sm:px-6">
+              <div class="flex items-center justify-between">
+                <div class="flex-1 flex justify-between sm:hidden">
+                  <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                    Previous
+                  </a>
+                  <a href="#" class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                    Next
+                  </a>
+                </div>
+                <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+                  <div>
+                    <p class="text-sm text-gray-700">
+                      Showing <span class="font-medium">1</span> to <span class="font-medium">10</span> of <span class="font-medium">16</span> students
+                    </p>
+                  </div>
+                  <div>
+                    <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                      <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                        <span class="sr-only">Previous</span>
+                        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                          <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                        </svg>
+                      </a>
+                      <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                        <span class="sr-only">Next</span>
+                        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                          <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                        </svg>
+                      </a>
+                    </nav>
+                  </div>
+                </div>
+              </div>
+              <button class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition-colors mt-2" onclick="alert('All grades submitted')">
+                Submit All
+              </button>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Notification -->
+  <div id="notification" class="fixed top-4 right-4 max-w-sm w-full bg-white shadow-lg rounded-lg pointer-events-auto hidden" role="alert">
+    <div class="p-4">
+      <div class="flex items-start">
+        <div class="flex-shrink-0">
+          <div id="notification-icon" class="w-6 h-6 flex items-center justify-center text-green-500">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+        </div>
+        <div class="ml-3 w-0 flex-1">
+          <p id="notification-message" class="text-sm font-medium text-gray-900"></p>
+        </div>
+        <div class="ml-4 flex-shrink-0 flex">
+          <button type="button" class="inline-flex text-gray-400 hover:text-gray-500 focus:outline-none" onclick="document.getElementById('notification').classList.add('hidden')">
+            <span class="sr-only">Close</span>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function submitStudent(studentName) {
+      const notification = document.getElementById('notification');
+      const message = document.getElementById('notification-message');
+      message.textContent = `Grades submitted for ${studentName}`;
+      notification.classList.remove('hidden');
+      setTimeout(() => notification.classList.add('hidden'), 3000);
+    }
+    
+    function logout() {
+      window.location.href = 'Login.html';
+    }
+  </script>
+</body>
+</html>
