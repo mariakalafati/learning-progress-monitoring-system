@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leadership Dashboard - School System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        .dashboard-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #f4f4f9;
+        }
+        .navbar {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+        }
+        .navbar a:hover {
+            background-color: #575757;
+            border-radius: 5px;
+        }
+        .content {
+            padding: 20px;
+            flex: 1;
+        }
+        .section-title {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        .management-section, .evaluation-section {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .management-section h2, .evaluation-section h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .management-section p, .evaluation-section p {
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: #555;
+        }
+        .button-action {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 15px;
+            cursor: pointer;
+        }
+        .button-action:hover {
+            background-color: #45a049;
+        }
+        .statistics-section {
+            background-color: #fff;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .statistics-section h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .statistics-section p {
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+        .stats-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .stats-list li {
+            background-color: #f9f9f9;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Leadership Dashboard -->
+<div class="dashboard-container">
+    <div class="navbar">
+        <div>School System - Leadership</div>
+        <div><a href="#">Logout</a></div>
+    </div>
+
+    <div class="content">
+
+        <!-- Evaluation and Reports Section -->
+        <div class="evaluation-section">
+            <h2>Evaluation and Reports</h2>
+            <p>Create reports on student progress, teacher performance, and school achievements.</p>
+            <button class="button-action">Generate Student Progress Reports</button><br><br>
+            <button class="button-action">Generate Teacher Performance Reports</button><br><br>
+            <button class="button-action">Generate School Performance Reports</button>
+        </div>
+
+        <!-- School Statistics Section -->
+        <div class="statistics-section">
+            <h2>School Statistics</h2>
+            <p>Generate and view statistics about school activities and academic performance.</p>
+            <ul class="stats-list">
+                <li>Total Number of Students: 500</li>
+                <li>Total Number of Teachers: 30</li>
+                <li>Average Student Performance: 85%</li>
+                <li>School Activities Participation: 75%</li>
+            </ul>
+            <button class="button-action">View Detailed Statistics</button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
