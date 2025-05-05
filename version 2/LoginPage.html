@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .login-container {
+      background-color: #ffffff;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+    .login-container h2 {
+      color: #00247D;
+      margin-bottom: 20px;
+    }
+    .login-input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+    .login-button {
+      width: 100%;
+      padding: 12px;
+      background-color: #CF142B;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .login-button:hover {
+      background-color: #a00e21;
+    }
+    .login-footer {
+      margin-top: 15px;
+    }
+    .login-footer a {
+      color: #00247D;
+      text-decoration: none;
+    }
+    .login-footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Login</h2>
+    <form onsubmit="handleLogin(event)">
+      <input type="text" class="login-input" placeholder="Username" required /><br />
+      <input type="password" class="login-input" placeholder="Password" required /><br />
+      <select id="role-select" class="login-input" required>
+  <option value="">Select Role</option>
+  <option value="teacher">Teacher</option>
+  <option value="parent">Parent</option>
+  <option value="leadership">Leadership</option>
+</select>
+      <button type="submit" class="login-button">Login</button>
+    </form>
+    <div class="login-footer">
+      <a href="#">Forgot Password?</a>
+    </div>
+  </div>
+
+  <script>
+    function handleLogin(event) {
+      event.preventDefault();
+      alert("Login successful!");
+      window.location.href = "MockupLogin.html";
+    }
+  </script>
+</body>
+</html>

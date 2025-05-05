@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Secretary Dashboard - UK School System</title>
+  <style>
+    :root {
+      --primary-color: #00247d; /* UK Blue */
+      --secondary-color: #cf142b; /* UK Red */
+      --neutral-color: #ffffff;
+      --text-color: #333;
+      --background: #f4f6fa;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--background);
+      display: flex;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 220px;
+      background-color: var(--primary-color);
+      color: var(--neutral-color);
+      height: 100vh;
+      position: fixed;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+    }
+
+    .sidebar h2 {
+      margin-bottom: 30px;
+      font-size: 20px;
+      text-align: center;
+      color: white;
+    }
+
+    .sidebar a {
+      text-decoration: none;
+      color: var(--neutral-color);
+      padding: 12px 15px;
+      margin: 5px 0;
+      border-radius: 5px;
+      transition: background 0.3s;
+      font-weight: 500;
+    }
+
+    .sidebar a:hover {
+      background-color: var(--secondary-color);
+    }
+
+    .main-content {
+    margin-left: 220px;
+    padding: 30px 30px 30px 40px; /* Add more space on the left */
+    flex-grow: 1;
+    }
+
+    .page-title {
+      font-size: 32px;
+      font-weight: bold;
+      color: var(--primary-color);
+      margin-bottom: 40px;
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: bold;
+      color: var(--primary-color);
+      margin-bottom: 20px;
+    }
+
+    .form-container {
+      background-color: var(--neutral-color);
+      padding: 25px;
+      border-left: 6px solid var(--secondary-color);
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      margin-bottom: 30px;
+    }
+
+    .input-field, textarea {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    .button-action {
+      background-color: var(--secondary-color);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .button-action:hover {
+      background-color: #a10f22;
+    }
+
+    .footer {
+      margin-top: 40px;
+      text-align: center;
+      color: #888;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h2>Secretary Panel</h2>
+    <a href="#">Dashboard</a>
+    <a href="#">Add Student</a>
+    <a href="#">Add Teacher</a>
+    <a href="#">School Documents</a>
+    <a href="#">Contact</a>
+    <a href="#">Settings</a>
+    <a href="#">Logout</a>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="page-title">Secretary Dashboard</div>
+
+    <div class="form-container">
+      <div class="section-title">Manage Students</div>
+      <form>
+        <input type="text" class="input-field" placeholder="Student Name" required />
+        <input type="text" class="input-field" placeholder="Class" required />
+        <button type="submit" class="button-action">Add Student</button>
+      </form>
+    </div>
+
+    <div class="form-container">
+      <div class="section-title">Manage Teachers</div>
+      <form>
+        <input type="text" class="input-field" placeholder="Teacher Name" required />
+        <input type="text" class="input-field" placeholder="Subject" required />
+        <button type="submit" class="button-action">Add Teacher</button>
+      </form>
+    </div>
+
+    <div class="form-container">
+      <div class="section-title">Manage School Documents</div>
+      <form>
+        <textarea class="input-field" placeholder="Create Document..." rows="4"></textarea>
+        <button type="submit" class="button-action">Create Document</button>
+      </form>
+    </div>
+
+    <div class="footer">
+      &copy; 2025 UK School System - All Rights Reserved
+    </div>
+  </div>
+
+</body>
+</html>

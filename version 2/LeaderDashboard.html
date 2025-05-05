@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leadership Dashboard - School System</title>
+  <style>
+    :root {
+      --primary-color: #00247D;
+      --secondary-color: #CF142B;
+      --neutral-color: #ffffff;
+      --background: #f4f4f9;
+      --text-color: #333;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: var(--background);
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+
+    .sidebar {
+      width: 220px;
+      background-color: var(--primary-color);
+      color: var(--neutral-color);
+      height: 100vh;
+      position: fixed;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+    }
+
+    .sidebar h2 {
+      margin-bottom: 30px;
+      font-size: 20px;
+      text-align: center;
+      color: white;
+    }
+
+    .sidebar a {
+      text-decoration: none;
+      color: var(--neutral-color);
+      padding: 12px 15px;
+      margin: 5px 0;
+      border-radius: 5px;
+      transition: background 0.3s;
+      font-weight: 500;
+    }
+
+    .sidebar a:hover {
+      background-color: var(--secondary-color);
+    }
+
+    .dashboard-container {
+      margin-left: 220px; /* room for the sidebar */
+      display: flex;
+      flex-direction: column;
+      width: calc(100% - 220px);
+      height: 100vh;
+    }
+
+.navbar {
+  background-color: var(--primary-color);
+  color: var(--neutral-color);
+  padding: 12px 25px;
+  padding-left: 245px; /* NEW: offset for sidebar width + spacing */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+    .navbar a {
+      color: var(--neutral-color);
+      text-decoration: none;
+      padding: 10px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .navbar a:hover {
+      background-color: var(--secondary-color);
+    }
+
+    .content {
+      padding: 30px;
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .evaluation-section,
+    .statistics-section {
+      background-color: var(--neutral-color);
+      padding: 25px;
+      margin-bottom: 25px;
+      border-left: 6px solid var(--secondary-color);
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .evaluation-section h2,
+    .statistics-section h2 {
+      font-size: 22px;
+      margin-bottom: 12px;
+      color: var(--primary-color);
+    }
+
+    .evaluation-section p,
+    .statistics-section p {
+      font-size: 16px;
+      margin-bottom: 18px;
+      color: var(--text-color);
+    }
+
+    .button-action {
+      background-color: var(--secondary-color);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 20px;
+      font-size: 15px;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+
+    .button-action:hover {
+      background-color: #a10f22;
+    }
+
+    .stats-list {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .stats-list li {
+      background-color: #f9f9f9;
+      padding: 12px;
+      margin: 6px 0;
+      border-radius: 5px;
+      border-left: 4px solid var(--primary-color);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar / Taskbar -->
+  <div class="sidebar">
+    <h2>Leadership Panel</h2>
+    <a href="#">Dashboard</a>
+    <a href="#">Evaluate Staff</a>
+    <a href="#">Review Student Progress</a>
+    <a href="#">School Statistics</a>
+    <a href="#">Policy Management</a>
+    <a href="#">Meetings & Events</a>
+    <a href="#">Settings</a>
+    <a href="Login.html">Logout</a>
+  </div>
+
+  <!-- Main Container -->
+  <div class="dashboard-container">
+    <div class="navbar">
+      <div>Leadership Dashboard</div>
+    </div>
+
+    <div class="content">
+      <!-- Evaluation and Reports Section -->
+      <div class="evaluation-section">
+        <h2>Evaluation and Reports</h2>
+        <p>Oversee school operations and generate insightful reports for leadership decision-making.</p>
+        <button class="button-action">Generate Student Progress Reports</button><br>
+        <button class="button-action">Generate Teacher Performance Reports</button><br>
+        <button class="button-action">Generate School Performance Reports</button>
+      </div>
+
+      <!-- School Statistics Section -->
+      <div class="statistics-section">
+        <h2>School Statistics</h2>
+        <p>Analyze institutional data to support data-driven improvements.</p>
+        <ul class="stats-list">
+          <li>Total Number of Students: 500</li>
+          <li>Total Number of Teachers: 30</li>
+          <li>Average Student Performance: 85%</li>
+          <li>School Activities Participation: 75%</li>
+        </ul>
+        <button class="button-action">View Detailed Statistics</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

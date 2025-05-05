@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Grading Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f4f4f9;
+      color: #000;
+    }
+    .dashboard {
+      display: flex;
+      min-height: 100vh;
+    }
+    .sidebar {
+  width: 250px;
+  padding: 20px;
+  background-color: #00247D !important; /* Deep blue */
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sidebar h3 {
+  color: white;
+}
+
+.sidebar a {
+  display: block;
+  color: white !important;
+  text-decoration: none;
+  padding: 10px 15px;
+  margin: 5px 0;
+  border-radius: 4px;
+  font-weight: 500;
+  background-color: transparent;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar a:hover {
+  background-color: #CF142B;
+  color: white !important;
+}
+
+.submit-left {
+  background-color: #CF142B;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+    .submit-left {
+      margin-top: 30px;
+      padding: 10px;
+      background-color: #CF142B;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .main {
+      flex-grow: 1;
+      padding: 30px;
+      background-color: #ffffff;
+    }
+
+    h2 {
+      color: #00247D;
+      border-bottom: 2px solid #CF142B;
+      padding-bottom: 10px;
+    }
+    .grade-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    .grade-table th,
+    .grade-table td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+    }
+    .grade-table th {
+      background-color: #CF142B;
+      color: white;
+    }
+    .grade-table tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    .grade-table tr:hover {
+      background-color: #f1f1f1;
+    }
+    label {
+      margin: 0 5px;
+    }
+    .submit-button {
+      padding: 6px 12px;
+      background-color: #00247D;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .submit-button:hover {
+      background-color: #001a5e;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    <div class="sidebar">
+  <div>
+    <h3>Select Class</h3>
+    <select id="class-select">
+      <option value="classA">Class A</option>
+      <option value="classB">Class B</option>
+      <option value="classC">Class C</option>
+    </select>
+
+    <h3 style="margin-top: 30px;">Select Date</h3>
+    <input type="date" id="calendar-widget" />
+
+    <div style="margin-top: 50px;">
+      <h3>General Tools</h3>
+      <a href="#">View Student Progress</a>
+      <a href="#">Record Learning Goal Achievement</a>
+      <a href="#">Generate Reports & Graphs</a>
+      <a href="#">Add Comments for Parents</a>
+      <a href="#">Class Overview</a>
+      <a href="#">Contact & Support</a>
+    </div>
+  </div>
+
+  <button class="submit-left" onclick="alert('All grades submitted')">Submit All</button>
+    <button class="submit-left" style="margin-top: 10px;" onclick="logout()">Logout</button>
+</div>
+
+
+    <div class="main">
+      <h2>Student Grading</h2>
+      <table class="grade-table">
+        <thead>
+            <tr>
+                <th>Student</th>
+                <th>Learning Goal 1</th>
+                <th>Learning Goal 2</th>
+                <th>Learning Goal 3</th>
+                <th>Learning Goal 4</th>
+                <th>Learning Goal 5</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+
+<tr>
+  <td>Student 1</td>
+  <td><label><input type="radio" name="student1_day1" value="0"> 0</label><label><input type="radio" name="student1_day1" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student1_day2" value="0"> 0</label><label><input type="radio" name="student1_day2" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student1_day3" value="0"> 0</label><label><input type="radio" name="student1_day3" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student1_day4" value="0"> 0</label><label><input type="radio" name="student1_day4" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student1_day5" value="0"> 0</label><label><input type="radio" name="student1_day5" value="1"> 1</label></td>
+  <td><button class="submit-button" onclick="submitStudent('Student ${n}')">Submit</button></td>
+</tr>
+<tr>
+  <td>Student 2</td>
+  <td><label><input type="radio" name="student2_day1" value="0"> 0</label><label><input type="radio" name="student2_day1" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student2_day2" value="0"> 0</label><label><input type="radio" name="student2_day2" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student2_day3" value="0"> 0</label><label><input type="radio" name="student2_day3" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student2_day4" value="0"> 0</label><label><input type="radio" name="student2_day4" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student2_day5" value="0"> 0</label><label><input type="radio" name="student2_day5" value="1"> 1</label></td>
+  <td><button class="submit-button" onclick="submitStudent('Student ${n}')">Submit</button></td>
+</tr>
+<tr>
+  <td>Student 3</td>
+  <td><label><input type="radio" name="student3_day1" value="0"> 0</label><label><input type="radio" name="student3_day1" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student3_day2" value="0"> 0</label><label><input type="radio" name="student3_day2" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student3_day3" value="0"> 0</label><label><input type="radio" name="student3_day3" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student3_day4" value="0"> 0</label><label><input type="radio" name="student3_day4" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student3_day5" value="0"> 0</label><label><input type="radio" name="student3_day5" value="1"> 1</label></td>
+    <td><button class="submit-button" onclick="submitStudent('Student ${n}')">Submit</button></td>
+</tr>
+<tr>
+  <td>Student 4</td>
+  <td><label><input type="radio" name="student4_day1" value="0"> 0</label><label><input type="radio" name="student4_day1" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student4_day2" value="0"> 0</label><label><input type="radio" name="student4_day2" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student4_day3" value="0"> 0</label><label><input type="radio" name="student4_day3" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student4_day4" value="0"> 0</label><label><input type="radio" name="student4_day4" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student4_day5" value="0"> 0</label><label><input type="radio" name="student4_day5" value="1"> 1</label></td>
+    <td><button class="submit-button" onclick="submitStudent('Student ${n}')">Submit</button></td>
+</tr>
+<tr>
+  <td>Student 5</td>
+  <td><label><input type="radio" name="student5_day1" value="0"> 0</label><label><input type="radio" name="student5_day1" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student5_day2" value="0"> 0</label><label><input type="radio" name="student5_day2" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student5_day3" value="0"> 0</label><label><input type="radio" name="student5_day3" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student5_day4" value="0"> 0</label><label><input type="radio" name="student5_day4" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student5_day5" value="0"> 0</label><label><input type="radio" name="student5_day5" value="1"> 1</label></td>
+  <td><button class="submit-button" onclick="submitStudent('Student ${n}')">Submit</button></td>
+</tr>
+<tr>
+  <td>Student 6</td>
+  <td><label><input type="radio" name="student6_day1" value="0"> 0</label><label><input type="radio" name="student6_day1" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student6_day2" value="0"> 0</label><label><input type="radio" name="student6_day2" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student6_day3" value="0"> 0</label><label><input type="radio" name="student6_day3" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student6_day4" value="0"> 0</label><label><input type="radio" name="student6_day4" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student6_day5" value="0"> 0</label><label><input type="radio" name="student6_day5" value="1"> 1</label></td>
+  <td><button class="submit-button" onclick="submitStudent('Student ${n}')">Submit</button></td>
+</tr>
+<tr>
+  <td>Student 7</td>
+  <td><label><input type="radio" name="student7_day1" value="0"> 0</label><label><input type="radio" name="student7_day1" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student7_day2" value="0"> 0</label><label><input type="radio" name="student7_day2" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student7_day3" value="0"> 0</label><label><input type="radio" name="student7_day3" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student7_day4" value="0"> 0</label><label><input type="radio" name="student7_day4" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student7_day5" value="0"> 0</label><label><input type="radio" name="student7_day5" value="1"> 1</label></td>
+  <td><button class="submit-button" onclick="submitStudent('Student ${n}')">Submit</button></td>
+</tr>
+<tr>
+  <td>Student 8</td>
+  <td><label><input type="radio" name="student8_day1" value="0"> 0</label><label><input type="radio" name="student8_day1" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student8_day2" value="0"> 0</label><label><input type="radio" name="student8_day2" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student8_day3" value="0"> 0</label><label><input type="radio" name="student8_day3" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student8_day4" value="0"> 0</label><label><input type="radio" name="student8_day4" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student8_day5" value="0"> 0</label><label><input type="radio" name="student8_day5" value="1"> 1</label></td>
+  <td><button class="submit-button" onclick="submitStudent('Student ${n}')">Submit</button></td>
+</tr>
+<tr>
+  <td>Student 9</td>
+  <td><label><input type="radio" name="student9_day1" value="0"> 0</label><label><input type="radio" name="student9_day1" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student9_day2" value="0"> 0</label><label><input type="radio" name="student9_day2" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student9_day3" value="0"> 0</label><label><input type="radio" name="student9_day3" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student9_day4" value="0"> 0</label><label><input type="radio" name="student9_day4" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student9_day5" value="0"> 0</label><label><input type="radio" name="student9_day5" value="1"> 1</label></td>
+  <td><button class="submit-button" onclick="submitStudent('Student ${n}')">Submit</button></td>
+</tr>
+<tr>
+  <td>Student 10</td>
+  <td><label><input type="radio" name="student10_day1" value="0"> 0</label><label><input type="radio" name="student10_day1" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student10_day2" value="0"> 0</label><label><input type="radio" name="student10_day2" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student10_day3" value="0"> 0</label><label><input type="radio" name="student10_day3" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student10_day4" value="0"> 0</label><label><input type="radio" name="student10_day4" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student10_day5" value="0"> 0</label><label><input type="radio" name="student10_day5" value="1"> 1</label></td>
+  <td><button class="submit-button" onclick="submitStudent('Student ${n}')">Submit</button></td>
+</tr>
+<tr>
+  <td>Student 11</td>
+  <td><label><input type="radio" name="student11_day1" value="0"> 0</label><label><input type="radio" name="student11_day1" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student11_day2" value="0"> 0</label><label><input type="radio" name="student11_day2" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student11_day3" value="0"> 0</label><label><input type="radio" name="student11_day3" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student11_day4" value="0"> 0</label><label><input type="radio" name="student11_day4" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student11_day5" value="0"> 0</label><label><input type="radio" name="student11_day5" value="1"> 1</label></td>
+  <td><button class="submit-button" onclick="submitStudent('Student ${n}')">Submit</button></td>
+</tr>
+<tr>
+  <td>Student 12</td>
+  <td><label><input type="radio" name="student12_day1" value="0"> 0</label><label><input type="radio" name="student12_day1" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student12_day2" value="0"> 0</label><label><input type="radio" name="student12_day2" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student12_day3" value="0"> 0</label><label><input type="radio" name="student12_day3" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student12_day4" value="0"> 0</label><label><input type="radio" name="student12_day4" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student12_day5" value="0"> 0</label><label><input type="radio" name="student12_day5" value="1"> 1</label></td>
+  <td><button class="submit-button" onclick="submitStudent('Student ${n}')">Submit</button></td>
+</tr>
+<tr>
+  <td>Student 13</td>
+  <td><label><input type="radio" name="student13_day1" value="0"> 0</label><label><input type="radio" name="student13_day1" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student13_day2" value="0"> 0</label><label><input type="radio" name="student13_day2" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student13_day3" value="0"> 0</label><label><input type="radio" name="student13_day3" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student13_day4" value="0"> 0</label><label><input type="radio" name="student13_day4" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student13_day5" value="0"> 0</label><label><input type="radio" name="student13_day5" value="1"> 1</label></td>
+  <td><button class="submit-button" onclick="submitStudent('Student ${n}')">Submit</button></td>
+</tr>
+<tr>
+  <td>Student 14</td>
+  <td><label><input type="radio" name="student14_day1" value="0"> 0</label><label><input type="radio" name="student14_day1" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student14_day2" value="0"> 0</label><label><input type="radio" name="student14_day2" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student14_day3" value="0"> 0</label><label><input type="radio" name="student14_day3" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student14_day4" value="0"> 0</label><label><input type="radio" name="student14_day4" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student14_day5" value="0"> 0</label><label><input type="radio" name="student14_day5" value="1"> 1</label></td>
+  <td><button class="submit-button" onclick="submitStudent('Student ${n}')">Submit</button></td>
+</tr>
+<tr>
+  <td>Student 15</td>
+  <td><label><input type="radio" name="student15_day1" value="0"> 0</label><label><input type="radio" name="student15_day1" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student15_day2" value="0"> 0</label><label><input type="radio" name="student15_day2" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student15_day3" value="0"> 0</label><label><input type="radio" name="student15_day3" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student15_day4" value="0"> 0</label><label><input type="radio" name="student15_day4" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student15_day5" value="0"> 0</label><label><input type="radio" name="student15_day5" value="1"> 1</label></td>
+  <td><button class="submit-button" onclick="submitStudent('Student ${n}')">Submit</button></td>
+</tr>
+<tr>
+  <td>Student 16</td>
+  <td><label><input type="radio" name="student16_day1" value="0"> 0</label><label><input type="radio" name="student16_day1" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student16_day2" value="0"> 0</label><label><input type="radio" name="student16_day2" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student16_day3" value="0"> 0</label><label><input type="radio" name="student16_day3" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student16_day4" value="0"> 0</label><label><input type="radio" name="student16_day4" value="1"> 1</label></td>
+  <td><label><input type="radio" name="student16_day5" value="0"> 0</label><label><input type="radio" name="student16_day5" value="1"> 1</label></td>
+  <td><button class="submit-button" onclick="submitStudent('Student ${n}')">Submit</button></td>
+</tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

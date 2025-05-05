@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Parent Dashboard - School System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f4f9;
+            color: #000;
+        }
+        .dashboard {
+            display: flex;
+            min-height: 100vh;
+        }
+        .sidebar {
+            width: 250px;
+            padding: 20px;
+            background-color: #00247D;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .sidebar h2 {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 0;
+            display: block;
+        }
+        .sidebar a:hover {
+            text-decoration: underline;
+        }
+        .main {
+            flex-grow: 1;
+            padding: 30px;
+            background-color: #ffffff;
+            position: relative;
+        }
+        h2 {
+            color: #00247D;
+            border-bottom: 2px solid #CF142B;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .student-progress div {
+            margin-bottom: 15px;
+        }
+        .report-list {
+            margin-top: 20px;
+        }
+        .report-item {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+        .report-item:hover {
+            background-color: #f1f1f1;
+        }
+        .button-action {
+            background-color: #CF142B;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button-action:hover {
+            background-color: #a51022;
+        }
+        strong {
+            display: inline-block;
+            width: 120px;
+        }
+        .contact-button {
+            position: absolute;
+            bottom: 20px;
+            right: 30px;
+            background-color: #00247D;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+        .contact-button:hover {
+            background-color: #001a5e;
+        }
+    </style>
+</head>
+<body>
+
+<div class="dashboard">
+    <div class="sidebar">
+        <div>
+            <h2>School System</h2>
+            <a href="#">Home</a>
+            <a href="#">Reports</a>
+            <a href="#">Settings</a>
+        </div>
+        <a href="#">Logout</a>
+    </div>
+
+    <div class="main">
+        <h2>Parent Dashboard</h2>
+
+        <div class="student-progress">
+            <h3 style="color:#00247D;">Student Progress</h3>
+            <p>View your child's progress based on daily participation (1 = Present, 0 = Absent).</p>
+            <div>
+                <strong>Mathematics:</strong> 4 (4/5)
+            </div>
+            <div>
+                <strong>Science:</strong> 3 (3/5)
+            </div>
+            <div>
+                <strong>English:</strong> 5 (5/5)
+            </div>
+            <div>
+                <strong>History:</strong> 2 (2/5)
+            </div>
+        </div>
+
+        <div class="report-list">
+            <h3 style="color:#00247D; margin-top: 40px;">Progress Reports</h3>
+            <div class="report-item">
+                <strong>Term 1 Report</strong><br>
+                Date: January 15, 2025<br>
+                <button class="button-action">Download Report</button>
+            </div>
+            <div class="report-item">
+                <strong>Term 2 Report</strong><br>
+                Date: May 10, 2025<br>
+                <button class="button-action">Download Report</button>
+            </div>
+            <div class="report-item">
+                <strong>Term 3 Report</strong><br>
+                Date: October 20, 2025<br>
+                <button class="button-action">Download Report</button>
+            </div>
+        </div>
+        <button class="contact-button" onclick="alert('Contact school administration')">Contact</button>
+    </div>
+</div>
+
+</body>
+</html>
